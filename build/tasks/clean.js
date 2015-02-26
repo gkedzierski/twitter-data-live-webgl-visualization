@@ -8,7 +8,11 @@
 //
 
 // Require modules
-var requireDir = require('require-dir');
+var gulp   = require('gulp'),
+    del    = require('del'),
+    config = require('../config');
 
-// Require all tasks in build/tasks, including subfolders
-requireDir('build/tasks', { recurse: true });
+// Remove asset destination folder
+gulp.task('clean', function (callback) {
+    del(config.dest, callback);
+});

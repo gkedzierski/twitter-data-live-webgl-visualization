@@ -8,7 +8,9 @@
 //
 
 // Require modules
-var requireDir = require('require-dir');
+var gulp = require('gulp');
 
-// Require all tasks in build/tasks, including subfolders
-requireDir('build/tasks', { recurse: true });
+// Build all project components
+gulp.task('build', ['styles', 'scripts'], function () {
+    console.log('Build complete.')
+});

@@ -1,21 +1,12 @@
 <?php
+/**
+ * WebGL Twitter Globe
+ * A WebGL based real-time data visualisation of Twitter activity for the chosen brands.
+ *
+ * 2015 (c) Greg Kedzierski
+ * http://gregkedzierski.com
+ * greg@gregkedzierski.com
+ */
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
-
-Route::get('/', 'WelcomeController@index');
-
-Route::get('home', 'HomeController@index');
-
-Route::controllers([
-	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController',
-]);
+// Main route
+Route::get('/', 'DefaultController@index');
