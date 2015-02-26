@@ -22,7 +22,7 @@ var gulp       = require('gulp'),
 // Lint JS
 gulp.task('scripts-lint', function () {
     return gulp.src(config.scripts.watch)
-        .pipe(jshint())
+        .pipe(jshint('build/.jshintrc'))
         .pipe(jshint.reporter(stylish))
         .pipe(jshint.reporter('fail'));
 });
