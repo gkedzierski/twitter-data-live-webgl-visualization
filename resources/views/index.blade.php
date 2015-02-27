@@ -11,7 +11,6 @@
         <script src="assets/js/modernizr.js"></script>
     </head>
     <body>
-        @include ('templates/canvas')
         @include ('templates/webgl-unavailable')
 
         <script src="assets/js/app.js"></script>

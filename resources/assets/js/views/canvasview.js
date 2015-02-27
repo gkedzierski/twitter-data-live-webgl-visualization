@@ -20,7 +20,8 @@ Backbone.$ = window.$;
  */
 module.exports = Backbone.View.extend({
     // WebGL canvas is rendered inside #canvas element
-    id : 'canvas',
+    id        : 'canvas',
+    className : 'canvas',
 
     /**
      * View constructor
@@ -36,7 +37,29 @@ module.exports = Backbone.View.extend({
         // Ensure WebGL is available in the browser
         this.checkWebGlAvailability();
 
+        // Insert parent canvas div into DOM
+        $('body').append(this.$el);
+
+        // Create scene
         this.scene = new THREE.Scene();
+
+        // Create camera
+        this.camera = new THREE.PerspectiveCamera(
+            75,
+            this.$el.width() / this.$el.height(),
+            0.1,
+            1000
+        );
+
+        // Set up renderer
+        this.renderer = new THREE.WebGLRenderer({
+            antialias : true,
+            alpha     : true
+        });
+        this.renderer.setSize(this.$el.width(), this.$el.height());
+
+        // Add <canvas> to view's DOM element
+        this.$el.append(this.renderer.domElement);
     },
 
     /**
