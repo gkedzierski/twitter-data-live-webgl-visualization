@@ -12,6 +12,7 @@
     </head>
     <body>
         @include ('templates/webgl-unavailable')
+        @include ('templates/canvas')
 
         <script src="assets/js/app.js"></script>
     </body>

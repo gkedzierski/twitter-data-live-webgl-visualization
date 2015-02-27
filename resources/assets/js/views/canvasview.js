@@ -20,8 +20,7 @@ Backbone.$ = window.$;
  */
 module.exports = Backbone.View.extend({
     // WebGL canvas is rendered inside #canvas element
-    id        : 'canvas',
-    className : 'canvas',
+    el : $('#canvas'),
 
     /**
      * View constructor
@@ -36,9 +35,6 @@ module.exports = Backbone.View.extend({
     render : function () {
         // Ensure WebGL is available in the browser
         this.checkWebGLAvailability();
-
-        // Insert parent canvas div into DOM
-        $('body').append(this.$el);
 
         // Create scene
         this.scene = new THREE.Scene();
