@@ -8,5 +8,5 @@
  * greg@gregkedzierski.com
  */
 
-// Main route
-Route::get('/', 'DefaultController@index');
+// Catch-all route
+Route::get('/{all?}', 'DefaultController@index');
