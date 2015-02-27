@@ -11,7 +11,7 @@
 
 // Vendor modules
 window.$     = require('jquery');
-window.THREE = require('../../../bower_components/three.js/three.js');
+window.THREE = require('../../../bower_components/three.js/three.min.js');
 var Backbone = require('backbone');
 
 Backbone.$ = window.$;

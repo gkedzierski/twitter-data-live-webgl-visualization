@@ -10,19 +10,54 @@
 'use strict';
 
 // Vendor modules
-var Backbone = require('backbone');
+var Backbone = require('backbone'),
+    THREE    = window.THREE;
 
 Backbone.$ = window.$;
 
-// CanvasView is main WebGL canvas view in the app
+/**
+ * CanvasView is main WebGL canvas view in the app
+ */
 module.exports = Backbone.View.extend({
-    // View constructor
+    // WebGL canvas is rendered inside #canvas element
+    id : 'canvas',
+
+    /**
+     * View constructor
+     */
     initialize : function () {
         this.render();
     },
 
-    // Create a view
+    /**
+     * Create a view
+     */
     render : function () {
-        console.log('I\'m in CanvasView render method!');
+        // Ensure WebGL is available in the browser
+        this.checkWebGlAvailability();
+
+        this.scene = new THREE.Scene();
+    },
+
+    /**
+     * Method checks if WebGL is available in the browser.
+     * If it's not available, it redirects user to error view.
+     * Code based on http://webgl.org wiki.
+     */
+    checkWebGlAvailability : function () {
+        // Check for the existence of WebGLRenderingContext
+        if (!window.WebGLRenderingContext) {
+            Backbone.history.navigate('webgl-unavailable', { trigger : true });
+        }
+
+        var canvas  = $('<canvas/>')[0],
+            context = canvas.getContext('webgl');
+
+        // If the browser supports WebGL and canvas.getContext("webgl") returns null
+        // then WebGL failed for some reason other than user's browser
+        // (no GPU, out of memory, etc...)
+        if (!context) {
+            Backbone.history.navigate('webgl-unavailable', { trigger : true });
+        }
     },
 });

@@ -1,6 +1,7 @@
 <!doctype html>
 <html class="no-js" lang="en-US">
     <head>
+        <base href="/">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>WebGL Twitter Globe</title>
@@ -10,7 +11,8 @@
         <script src="assets/js/modernizr.js"></script>
     </head>
     <body>
-        <p>Hello World!</p>
+        @include ('templates/canvas')
+        @include ('templates/webgl-unavailable')
 
         <script src="assets/js/app.js"></script>
     </body>

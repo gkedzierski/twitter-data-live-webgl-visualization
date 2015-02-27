@@ -15,17 +15,30 @@ var Backbone = require('backbone');
 Backbone.$ = window.$;
 
 // App views
-var CanvasView = require('./views/canvasview');
+var CanvasView           = require('./views/canvasview'),
+    WebGlUnavailableView = require('./views/webglunavailableview');
 
-// This module exports Backbone router object
+/**
+ * This module exports Backbone router object
+ */
 module.exports = Backbone.Router.extend({
     // Define all routes
     routes : {
-        '' : 'home',
+        ''                  : 'home',
+        'webgl-unavailable' : 'webglUnavailable',
     },
 
-    // Home route - landing page
+    /**
+     * Home route - landing page
+     */
     home : function () {
         this.view = new CanvasView();
     },
+
+    /**
+     * Unavailble WebGL - route displays error view
+     */
+    webglUnavailable : function () {
+        this.view = new WebGlUnavailableView();
+    }
 });
