@@ -35,7 +35,7 @@ module.exports = Backbone.View.extend({
      */
     render : function () {
         // Ensure WebGL is available in the browser
-        this.checkWebGlAvailability();
+        this.checkWebGLAvailability();
 
         // Insert parent canvas div into DOM
         $('body').append(this.$el);
@@ -67,7 +67,7 @@ module.exports = Backbone.View.extend({
      * If it's not available, it redirects user to error view.
      * Code based on http://webgl.org wiki.
      */
-    checkWebGlAvailability : function () {
+    checkWebGLAvailability : function () {
         // Check for the existence of WebGLRenderingContext
         if (!window.WebGLRenderingContext) {
             Backbone.history.navigate('webgl-unavailable', { trigger : true });
