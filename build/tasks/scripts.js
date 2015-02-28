@@ -44,7 +44,7 @@ gulp.task('scripts-vendor', function () {
 });
 
 // Compile JS
-gulp.task('scripts', ['scripts-lint', 'scripts-test', 'scripts-vendor'], function () {
+gulp.task('scripts', ['scripts-lint', 'scripts-vendor'], function () {
     var bundler = browserify({
         entries : ['./' + config.scripts.src],
         debug   : config.debug,
