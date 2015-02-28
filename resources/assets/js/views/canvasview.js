@@ -56,6 +56,8 @@ module.exports = Backbone.View.extend({
 
         // Add <canvas> to view's DOM element
         this.$el.append(this.renderer.domElement);
+
+        return this;
     },
 
     /**

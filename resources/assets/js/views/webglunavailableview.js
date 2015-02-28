@@ -40,5 +40,7 @@ module.exports = Backbone.View.extend({
 
         // Insert compiled HTML into DOM
         this.$el.html(template);
+
+        return this;
     },
 });
