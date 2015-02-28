@@ -80,5 +80,7 @@ module.exports = Backbone.View.extend({
         if (!context) {
             Backbone.history.navigate('webgl-unavailable', { trigger : true });
         }
+
+        return true;
     },
 });
