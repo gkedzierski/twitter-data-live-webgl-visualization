@@ -16,7 +16,7 @@ Backbone.$ = window.$;
 
 // App views
 var CanvasView           = require('./views/canvasview'),
-    WebGlUnavailableView = require('./views/webglunavailableview');
+    WebGLUnavailableView = require('./views/webglunavailableview');
 
 /**
  * This module exports Backbone router object
@@ -39,6 +39,6 @@ module.exports = Backbone.Router.extend({
      * Unavailble WebGL - route displays error view
      */
     webglUnavailable : function () {
-        this.view = new WebGlUnavailableView();
+        this.view = new WebGLUnavailableView();
     }
 });

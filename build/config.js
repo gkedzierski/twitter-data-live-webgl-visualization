@@ -40,7 +40,7 @@ module.exports = {
     // JavaScript paths
     scripts : {
         src    : src + '/js/app.js',
-        watch  : src + '/js/**/*.js',
+        watch  : [src + '/js/**/*.js', '!' + src + '/js/spec/**/*.js'],
         dest   : dest + '/js',
         vendor : ['bower_components/modernizr/modernizr.js'],
     },

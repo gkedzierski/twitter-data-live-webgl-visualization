@@ -15,6 +15,7 @@ var gulp       = require('gulp'),
     uglify     = require('gulp-uglify'),
     sourcemaps = require('gulp-sourcemaps'),
     jshint     = require('gulp-jshint'),
+    karma      = require('karma').server,
     stylish    = require('jshint-stylish'),
     gulpif     = require('gulp-if'),
     config     = require('../config');
@@ -27,6 +28,14 @@ gulp.task('scripts-lint', function () {
         .pipe(jshint.reporter('fail'));
 });
 
+// Unit test JS
+gulp.task('scripts-test', function (callback) {
+    karma.start({
+        configFile : __dirname + '/../karma.conf.js',
+        singleRun  : true,
+    }, callback);
+});
+
 // Vendor files
 gulp.task('scripts-vendor', function () {
     return gulp.src(config.scripts.vendor)
@@ -35,7 +44,7 @@ gulp.task('scripts-vendor', function () {
 });
 
 // Compile JS
-gulp.task('scripts', ['scripts-lint', 'scripts-vendor'], function () {
+gulp.task('scripts', ['scripts-lint', 'scripts-test', 'scripts-vendor'], function () {
     var bundler = browserify({
         entries : ['./' + config.scripts.src],
         debug   : config.debug,
