@@ -30,6 +30,8 @@ module.exports = Backbone.View.extend({
      * View constructor
      */
     initialize : function () {
+        _.bindAll(this, 'animate');
+
         this.subviews = [];
 
         this.createCanvas();
@@ -99,27 +101,28 @@ module.exports = Backbone.View.extend({
      * Main WebGL render loop
      */
     render : function () {
-        var lastTimeMsec = null,
-            deltaMsec,
-            self = this;
+        this.lastTimeMsec = null;
+        requestAnimationFrame(this.animate);
+    },
 
-        requestAnimationFrame(function animate(nowMsec) {
-            // Keep looping
-            requestAnimationFrame(animate);
+    animate : function (nowMsec) {
+        var deltaMsec;
 
-            // measure time
-            lastTimeMsec = lastTimeMsec || nowMsec - 1000 / 60;
-            deltaMsec    = Math.min(200, nowMsec - lastTimeMsec);
-            lastTimeMsec = nowMsec;
+        // Keep looping
+        requestAnimationFrame(this.animate);
 
-            // render all subviews
-            _.each(self.subviews, function (view) {
-                view.render(deltaMsec / 1000);
-            });
+        // measure time
+        this.lastTimeMsec = this.lastTimeMsec || nowMsec - 1000 / 60;
+        deltaMsec         = Math.min(200, nowMsec - this.lastTimeMsec);
+        this.lastTimeMsec = nowMsec;
 
-            // render frame
-            self.renderer.render(self.scene, self.camera);
+        // render all subviews
+        _.each(this.subviews, function (view) {
+            view.render(deltaMsec / 1000);
         });
+
+        // render frame
+        this.renderer.render(this.scene, this.camera);
     },
 
     /**
