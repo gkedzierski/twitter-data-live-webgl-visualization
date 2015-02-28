@@ -14,7 +14,8 @@ var gulp   = require('gulp'),
 
 // Build and watch a project
 gulp.task('default', ['build', 'browser-sync'], function () {
-    gulp.watch(config.html.watch, [reload]);
+    gulp.watch(config.php.watch, ['php', reload]);
+    gulp.watch(config.html.watch, ['php', reload]);
     gulp.watch(config.styles.watch, ['styles']);
     gulp.watch(config.scripts.watch, ['scripts', reload]);
 });

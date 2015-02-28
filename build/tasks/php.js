@@ -8,9 +8,12 @@
 //
 
 // Require modules
-var gulp = require('gulp');
+var gulp   = require('gulp'),
+    shell  = require('gulp-shell'),
+    config = require('../config');
 
-// Build all project components
-gulp.task('build', ['styles', 'scripts', 'php'], function () {
-    console.log('Build complete.')
-});
+// Check PHP code quality
+gulp.task('php', shell.task([
+    'php artisan code:quality',
+]));
+

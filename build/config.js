@@ -31,6 +31,11 @@ module.exports = {
         watch : 'resources/views/**/*.php',
     },
 
+    // PHP script files
+    php : {
+        src : ['app/**/*.php', 'resources/views/**/*.php'],
+    },
+
     // Font asset paths
     fonts : {
         src  : src + '/fonts/**/*.*',
