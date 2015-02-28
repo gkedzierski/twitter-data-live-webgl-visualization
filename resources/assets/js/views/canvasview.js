@@ -11,9 +11,13 @@
 
 // Vendor modules
 var Backbone = require('backbone'),
+    _        = require('underscore'),
     THREE    = window.THREE;
 
 Backbone.$ = window.$;
+
+// Sub-views
+var GlobeView = require('./globeview');
 
 /**
  * CanvasView is main WebGL canvas view in the app
@@ -26,13 +30,15 @@ module.exports = Backbone.View.extend({
      * View constructor
      */
     initialize : function () {
-        this.render();
+        this.subviews = [];
+
+        this.createCanvas();
     },
 
     /**
      * Create a view
      */
-    render : function () {
+    createCanvas : function () {
         // Ensure WebGL is available in the browser
         this.checkWebGLAvailability();
 
@@ -46,18 +52,62 @@ module.exports = Backbone.View.extend({
             0.1,
             1000
         );
+        this.camera.position.x = 0;
+        this.camera.position.y = 0;
+        this.camera.position.z = 2;
+        this.camera.lookAt(new THREE.Vector3(0, 0, 0));
 
         // Set up renderer
         this.renderer = new THREE.WebGLRenderer({
             antialias : true,
             alpha     : true
         });
+        this.renderer.shadowMapEnabled = true;
         this.renderer.setSize(this.$el.width(), this.$el.height());
 
         // Add <canvas> to view's DOM element
         this.$el.append(this.renderer.domElement);
 
+        // Add lights
+        this.scene.add(new THREE.AmbientLight(0x404040));
+        var light = new THREE.PointLight(0xffffff, 1, 100);
+        light.position.set(50, 50, 50);
+        this.scene.add(light);
+
+        // Add subviews
+        this.subviews.push(new GlobeView(this.scene));
+
+        // Render first frame
+        this.render();
+
         return this;
+    },
+
+    /**
+     * Main WebGL render loop
+     */
+    render : function () {
+        var lastTimeMsec = null,
+            deltaMsec,
+            self = this;
+
+        requestAnimationFrame(function animate(nowMsec) {
+            // Keep looping
+            requestAnimationFrame(animate);
+
+            // measure time
+            lastTimeMsec = lastTimeMsec || nowMsec - 1000 / 60;
+            deltaMsec    = Math.min(200, nowMsec - lastTimeMsec);
+            lastTimeMsec = nowMsec;
+
+            // render all subviews
+            _.each(self.subviews, function (view) {
+                view.render(deltaMsec / 1000);
+            });
+
+            // render frame
+            self.renderer.render(self.scene, self.camera);
+        });
     },
 
     /**
