@@ -68,6 +68,9 @@ module.exports = Backbone.View.extend({
         // Add <canvas> to view's DOM element
         this.$el.append(this.renderer.domElement);
 
+        // Handle window resize
+        $(window).on('resize', _.bind(this.handleWindowResize, this));
+
         // Add lights
         this.scene.add(new THREE.AmbientLight(0x404040));
         var light = new THREE.PointLight(0xffffff, 1, 100);
@@ -81,6 +84,15 @@ module.exports = Backbone.View.extend({
         this.render();
 
         return this;
+    },
+
+    /**
+     * Method handle window resize event - scales canvas to match the window
+     */
+    handleWindowResize : function () {
+        this.camera.aspect = this.$el.width() / this.$el.height();
+        this.camera.updateProjectionMatrix();
+        this.renderer.setSize(this.$el.width(), this.$el.height());
     },
 
     /**
