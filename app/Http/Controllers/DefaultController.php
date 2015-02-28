@@ -15,13 +15,13 @@ namespace App\Http\Controllers;
  */
 class DefaultController extends Controller
 {
-	/**
-	 * Show the main application view
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		return view('index');
-	}
+    /**
+     * Show the main application view
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        return view('index');
+    }
 }

@@ -14,69 +14,70 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class CodeQuality extends Command {
+class CodeQuality extends Command
+{
 
-	/**
-	 * The console command name.
-	 *
-	 * @var string
-	 */
-	protected $name = 'code:quality';
+    /**
+     * The console command name.
+     *
+     * @var string
+     */
+    protected $name = 'code:quality';
 
-	/**
-	 * The console command description.
-	 *
-	 * @var string
-	 */
-	protected $description = 'Check PHP code quality.';
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Check PHP code quality.';
 
-	/**
-	 * Create a new command instance.
-	 *
-	 * @return void
-	 */
-	public function __construct()
-	{
-		parent::__construct();
-	}
+    /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
-	/**
-	 * Execute the console command.
-	 *
-	 * @return mixed
-	 */
-	public function fire()
-	{
-		$this->commands['php -l ./app']                                       = 'Linting PHP code... ';
-		$this->commands['php vendor/bin/phpunit -c phpunit.xml']              = 'Running PHPUnit test suite... ';
-		$this->commands['php vendor/bin/phpspec run']            	          = 'Running PHPSpec test suite... ';
-		$this->commands['php vendor/bin/phpcs --standard=PSR2 ./app/']        = 'Checking for PSR-2 compatibility... ';
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
+    public function fire()
+    {
+        $this->commands['php -l ./app']                                       = 'Linting PHP code... ';
+        $this->commands['php vendor/bin/phpunit -c phpunit.xml']              = 'Running PHPUnit test suite... ';
+        $this->commands['php vendor/bin/phpspec run']                         = 'Running PHPSpec test suite... ';
+        $this->commands['php vendor/bin/phpcs --standard=PSR2 ./app/']        = 'Checking for PSR-2 compatibility... ';
         $this->commands['php vendor/bin/phpmd ./app/ text ./build/phpmd.xml'] = 'Running PHP Mess Detector... ';
 
-		foreach ($this->commands as $command => $description) {
+        foreach ($this->commands as $command => $description) {
             $this->runCommand($command, $description);
         }
-	}
+    }
 
-	/**
-	 * Get the console command arguments.
-	 *
-	 * @return array
-	 */
-	protected function getArguments()
-	{
-		return [];
-	}
+    /**
+     * Get the console command arguments.
+     *
+     * @return array
+     */
+    protected function getArguments()
+    {
+        return [];
+    }
 
-	/**
-	 * Get the console command options.
-	 *
-	 * @return array
-	 */
-	protected function getOptions()
-	{
-		return [];
-	}
+    /**
+     * Get the console command options.
+     *
+     * @return array
+     */
+    protected function getOptions()
+    {
+        return [];
+    }
 
     /**
      * @param $output string
